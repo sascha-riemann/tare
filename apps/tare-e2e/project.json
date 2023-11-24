@@ -1,0 +1,33 @@
+{
+  "name": "tare-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/tare-e2e/src",
+  "targets": {
+    "e2e": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/tare-e2e/cypress.config.ts",
+        "testingType": "e2e",
+        "devServerTarget": "tare:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "tare:serve:production"
+        },
+        "ci": {
+          "devServerTarget": "tare:serve-static"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/tare-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["tare"]
+}
