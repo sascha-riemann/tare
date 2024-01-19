@@ -1,0 +1,17 @@
+<tare-page
+  [backBtn]="true"
+  title="Categories"
+  *appLet="categories$ | async as categories"
+>
+  <p-button
+    actions
+    icon="pi pi-plus"
+    routerLink="create"
+    [rounded]="true"
+    severity="secondary"
+    [text]="true"
+    size="small"
+  ></p-button>
+  <span *ngIf="!categories">No categories found</span>
+  <span *ngFor="let category of categories">{{ category.name }}</span>
+</tare-page>

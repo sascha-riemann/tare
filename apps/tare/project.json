@@ -17,7 +17,10 @@
         "tsConfig": "apps/tare/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": ["apps/tare/src/favicon.ico", "apps/tare/src/assets"],
-        "styles": ["apps/tare/src/styles.scss"],
+        "styles": [
+          "apps/tare/src/styles.scss",
+          "node_modules/primeflex/primeflex.css"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -54,7 +57,10 @@
           "buildTarget": "tare:build:development"
         }
       },
-      "defaultConfiguration": "development"
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/tare/proxy.conf.json"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",

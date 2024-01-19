@@ -1,0 +1,19 @@
+<div class="flex flex-column h-full w-full pt-1 px-3 pb-3">
+  <div class="flex flex-row mb-3 align-items-center h-3rem">
+    <p-button
+      *ngIf="backBtn"
+      icon="pi pi-arrow-left"
+      class="mr-2"
+      routerLink="../"
+      [rounded]="true"
+      severity="secondary"
+      [text]="true"
+      size="small"
+    ></p-button>
+    <span class="text-xl font-bold mr-auto">{{ title || 'Tare' }}</span>
+
+    <ng-content select="[actions]"></ng-content>
+  </div>
+
+  <ng-content></ng-content>
+</div>

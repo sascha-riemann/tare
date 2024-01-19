@@ -1,0 +1,57 @@
+{
+  "name": "tare-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/tare-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/tare-api",
+        "main": "apps/tare-api/src/main.ts",
+        "tsConfig": "apps/tare-api/tsconfig.app.json",
+        "assets": ["apps/tare-api/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/tare-api/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "tare-api:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "tare-api:build:development"
+        },
+        "production": {
+          "buildTarget": "tare-api:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/tare-api/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/tare-api/jest.config.ts"
+      }
+    }
+  },
+  "tags": []
+}

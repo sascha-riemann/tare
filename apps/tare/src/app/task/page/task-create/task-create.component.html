@@ -1,0 +1,57 @@
+<tare-page [backBtn]="true" title="Create Task" [formGroup]="formGroup">
+  <label class="mb-1">Name *</label>
+  <input formControlName="name" pInputText />
+
+  <label class="mb-1 mt-4">Start *</label>
+  <p-calendar
+    formControlName="start"
+    styleClass="w-full"
+    [showTime]="true"
+  ></p-calendar>
+
+  <label class="mb-1 mt-4">End *</label>
+  <p-calendar
+    formControlName="end"
+    styleClass="w-full"
+    [showTime]="true"
+  ></p-calendar>
+
+  <label class="mb-1 mt-4">Wiederholen</label>
+  <p-multiSelect
+    styleClass="w-full"
+    formControlName="repeat"
+    [showHeader]="false"
+    [options]="[
+      'Monday',
+      'Tuesday',
+      'Wednesday',
+      'Thursday',
+      'Friday',
+      'Saturday',
+      'Sunday'
+    ]"
+  ></p-multiSelect>
+
+  <label class="mb-1 mt-4">Category</label>
+  <p-dropdown
+    formControlName="category"
+    styleClass="w-full"
+    [options]="categories$ | async"
+    optionLabel="name"
+  >
+  </p-dropdown>
+
+  <label class="mb-1 mt-4">Description</label>
+  <textarea
+    formControlName="description"
+    pInputTextarea
+    [autoResize]="true"
+    rows="4"
+  ></textarea>
+
+  <tare-form-actions
+    class="mt-5 ml-auto"
+    (save)="save()"
+    (cancel)="cancel()"
+  ></tare-form-actions>
+</tare-page>

@@ -1,0 +1,108 @@
+<tare-page [backBtn]="false">
+  <p-button
+    actions
+    (click)="menu.toggle($event)"
+    icon="pi pi-ellipsis-v"
+    [rounded]="true"
+    severity="secondary"
+    [text]="true"
+    size="small"
+  ></p-button>
+
+  <div class="flex flex-row align-items-center">
+    <p-button
+      class="ml-auto"
+      icon="pi pi-chevron-left"
+      [rounded]="true"
+      [text]="true"
+      (click)="previousDay()"
+    ></p-button>
+    <strong class="text-lg w-5 text-center mx-5">{{
+      currentDate$ | async | date: 'ccc dd.MM.yy'
+    }}</strong>
+    <p-button
+      class="mr-auto"
+      icon="pi pi-chevron-right"
+      [rounded]="true"
+      [text]="true"
+      (click)="nextDay()"
+    ></p-button>
+  </div>
+
+  <div
+    class="flex flex-column text-center my-5"
+    *ngIf="currentTask$ | async as currentTask"
+  >
+    <div class="flex flex-row align-items-center">
+      <span class="font-bold text-xl mr-auto">{{ currentTask.name }}</span>
+      <p-chip
+        *ngIf="currentTask.category"
+        [style]="{ background: currentTask.category.color }"
+        [label]="currentTask.category.name"
+      ></p-chip>
+    </div>
+    <div class="flex flex-row gap-1 my-3">
+      <div
+        *ngFor="
+          let task of currentTask.tasks?.length
+            ? currentTask.tasks
+            : [currentTask]
+        "
+        [style.width]="
+          currentTask.interval | intervalWidth: currentTask.interval
+        "
+      >
+        <p-progressBar [value]="100" [showValue]="false"></p-progressBar>
+      </div>
+    </div>
+
+    <span>00:36:21</span>
+  </div>
+
+  <span class="text-md font-bold mb-2">Next up</span>
+  <ng-container *ngIf="tasks$ | async as tasks">
+    <ng-container *ngFor="let task of tasks; let first = first">
+      <div *ngIf="!first" class="grid align-items-center text-center my-1">
+        <p-divider class="col-2"></p-divider>
+        <i class="pi pi-plus col-1"></i>
+        <p-divider class="col-9"></p-divider>
+      </div>
+      <p-card pRipple>
+        <ng-template pTemplate="header">
+          <div class="flex flex-row pt-3 px-3 align-items-center">
+            <span class="mr-auto text-xs">
+              {{ task.interval.start | date: 'shortTime' }} -
+              {{ task.interval.end | date: 'shortTime' }}
+            </span>
+            <i class="pi pi-apple"></i>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <span class="font-bold">{{ task.name }}</span>
+        </ng-template>
+        <ng-template
+          *ngIf="task.category || task.tasks?.length"
+          pTemplate="footer"
+        >
+          <div class="flex flex-row">
+            <div
+              *ngIf="task.tasks?.length"
+              class="flex flex-row align-items-center"
+            >
+              <i class="pi pi-check-square mr-2"></i>
+              <span>{{ task.tasks?.length }}</span>
+            </div>
+            <p-chip
+              *ngIf="task.category"
+              class="ml-auto"
+              [style]="{ background: task.category.color }"
+              [label]="task.category.name"
+            ></p-chip>
+          </div>
+        </ng-template>
+      </p-card>
+    </ng-container>
+  </ng-container>
+</tare-page>
+
+<p-menu #menu [model]="menuItems" [popup]="true"></p-menu>

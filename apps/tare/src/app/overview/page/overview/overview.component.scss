@@ -1,0 +1,12 @@
+p-card ::ng-deep {
+  .p-card-body {
+    padding-top: 0;
+  }
+  .p-card-footer {
+    padding-top: 0;
+  }
+}
+
+p-chip ::ng-deep .p-chip-text {
+  font-size: 0.8rem;
+}

@@ -1,0 +1,16 @@
+<div class="flex flex-row gap-2">
+  <p-button
+    label="Cancel"
+    (onClick)="cancel.emit()"
+    [text]="true"
+    [rounded]="true"
+    severity="danger"
+  ></p-button>
+
+  <p-button
+    label="Save"
+    (onClick)="save.emit()"
+    [text]="true"
+    [rounded]="true"
+  ></p-button>
+</div>
